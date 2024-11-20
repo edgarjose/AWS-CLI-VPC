@@ -9,13 +9,11 @@ Building a multi AZ VPC Architecture
   
   
 ## 2.Adicionar uma Tag à VPC
-## 2.1 Adicionar uma tag à VPC com um nome:
 
 aws ec2 create-tags --resources vpc-0b886de99d2130633 --tags Key=Name,Value=PraticalVPC
  
  
 ## 3. Habilitar DNS Hostnames e Suporte a DNS para a VPC
-## 3.1 Habilitar DNS Hostnames para a VPC
 
 aws ec2 modify-vpc-attribute --vpc-id vpc-0b886de99d2130633 --enable-dns-hostnames
 
@@ -29,13 +27,11 @@ aws ec2 create-subnet --vpc-id vpc-0b886de99d2130633 --cidr-block 192.0.1.0/24 -
 
 
 ## 5.Adicionar Tags às Sub-redes
-## 5.1 Adicionar uma tag à Sub-rede:
 
 aws ec2 create-tags --resources subnet-07df7998a8fe93b4a --tags Key=Name,Value=PublicSubnet
 
 
 ## 6.Criar Gateway de Internet
-## 6.1 Criar um Gateway de Internet:
 
  aws ec2 create-internet-gateway
 
@@ -49,7 +45,6 @@ aws ec2 attach-internet-gateway --internet-gateway-id igw-061393fae44311300 --vp
 
 
 ## 9. Alocar IP Elástico para o NAT Gateway
-## 9.1 Criar um IP Elástico para o NAT Gateway:
 
 aws ec2 allocate-address --domain vpc
 
@@ -62,7 +57,6 @@ aws ec2 create-tags --resources nat-03a2cca7596319169 --tags Key=Name,Value=Nate
 
   
 ## 12.Criar Tabelas de Roteamento
-## 12.1 Criar uma Tabela de Roteamento para a VPC:
 
 aws ec2 create-route-table --vpc-id vpc-0b886de99d2130633
 
@@ -78,8 +72,6 @@ aws ec2 create-route --route-table-id rtb-0a9ab1eb37f110bbc --destination-cidr-b
 
 ## 15.Associar Tabelas de Roteamento com Sub-redes
 
-## 15.1 Associar a tabela de roteamento pública à sub-rede pública:
-
 aws ec2 associate-route-table --route-table-id rtb-019395246943bf730 --subnet-id subnet-07df7998a8fe93b4a
 
 ## 16.Associar a tabela de roteamento privada à sub-rede privada:
@@ -87,8 +79,6 @@ aws ec2 associate-route-table --route-table-id rtb-019395246943bf730 --subnet-id
 aws ec2 associate-route-table --route-table-id rtb-0a9ab1eb37f110bbc --subnet-id subnet-0de289a45c7b2b6f6
     
 ## 17.Criar um Grupo de Segurança
-
-## 18.Criar um Grupo de Segurança para a VPC:
 
 aws ec2 create-security-group --group-name pratical-security-group --description "web server" --vpc-id vpc-0b886de99d2130633
 
