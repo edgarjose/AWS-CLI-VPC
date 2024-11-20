@@ -108,3 +108,34 @@ aws ec2 run-instances --image-id ami-0166fe664262f664c --instance-type t2.micro 
 ## 24. Tag the EC2 Instance:
 
 aws ec2 create-tags --resources i-0cb80aea6ecd455a3 --tags Key=Name,Value=Pratical-demo
+
+## Aceder a instancia atravez de um cliente ssh
+
+ssh -i "MinhaKeyPair" ec2-user@ipdainstancia
+
+
+## 25: Instalar o Apache (HTTPD)
+sudo yum install -y httpd
+
+## 26: Adicionar o utilizador ec2-user ao grupo apache
+sudo usermod -a -G apache ec2-user
+
+## 27: Alterar a propriedade e permissões dos diretórios
+sudo chown -R ec2-user:apache /var/www
+sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
+find /var/www -type f -exec sudo chmod 0664 {} \;
+
+## 28: Baixar e extrair o website estático
+cd /tmp
+wget https://github.com/edgarjose/static-website/archive/refs/heads/main.zip
+unzip main.zip
+cd static-website-main
+cp -r festava_live/* /var/www/html/
+
+## 29 : Limpar ficheiros temporários
+rm -rf festava_live main.zip
+
+## 30 : Configurar o Apache para iniciar automaticamente e iniciar o serviço
+sudo systemctl enable httpd
+sudo systemctl start httpd
+
