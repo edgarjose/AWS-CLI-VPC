@@ -65,9 +65,11 @@ aws ec2 create-tags --resources rtb-019395246943bf730 --tags Key=Name,Value=Priv
 
 ## 14.Criar rotas para sub-redes públicas e privadas:
   - Para a rota pública (Gateway de Internet):
+
 aws ec2 create-route --route-table-id rtb-019395246943bf730 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-061393fae44311300
 
   - Para a rota privada (NAT Gateway):
+
 aws ec2 create-route --route-table-id rtb-0a9ab1eb37f110bbc --destination-cidr-block 0.0.0.0/0 --gateway-id nat-03a2cca7596319169
 
 ## 15.Associar Tabelas de Roteamento com Sub-redes
@@ -98,6 +100,7 @@ aws ec2 authorize-security-group-ingress --group-id sg-0dda9473271188921 --proto
 ## 21.Criar um Par de Chave
 
 22.Criar um Par de Chaves para a Instância EC2:
+
 aws ec2 create-key-pair --key-name MinhakeyPair --query 'MinhaKeyPair' --output text > MinhakeyPair.pem
 
 ## 23.Lançar uma Instância EC2
@@ -122,14 +125,20 @@ sudo usermod -a -G apache ec2-user
 
 ## 27: Alterar a propriedade e permissões dos diretórios
 sudo chown -R ec2-user:apache /var/www
+
 sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
+
 find /var/www -type f -exec sudo chmod 0664 {} \;
 
 ## 28: Baixar e extrair o website estático
 cd /tmp
+
 wget https://github.com/edgarjose/static-website/archive/refs/heads/main.zip
+
 unzip main.zip
+
 cd static-website-main
+
 cp -r festava_live/* /var/www/html/
 
 ## 29 : Limpar ficheiros temporários
@@ -137,5 +146,6 @@ rm -rf festava_live main.zip
 
 ## 30 : Configurar o Apache para iniciar automaticamente e iniciar o serviço
 sudo systemctl enable httpd
+
 sudo systemctl start httpd
 
